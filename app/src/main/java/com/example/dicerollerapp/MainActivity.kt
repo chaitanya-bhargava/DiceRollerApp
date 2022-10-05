@@ -40,9 +40,10 @@ fun DiceRollerApp(){
 @Composable
 fun DiceWithImageAndButton(modifier:Modifier=Modifier){
     var result by remember{
-        mutableStateOf(1)
+        mutableStateOf(0)
     }
     val imageResource=when(result){
+        0->R.drawable.dice_1
         1->R.drawable.dice_1
         2->R.drawable.dice_2
         3->R.drawable.dice_3
@@ -52,6 +53,10 @@ fun DiceWithImageAndButton(modifier:Modifier=Modifier){
     }
     Column(modifier=modifier,
     horizontalAlignment = Alignment.CenterHorizontally){
+        if (result!=0) {
+            Text(text = "You rolled $result !", fontSize = 25.sp, fontWeight = FontWeight.Bold)
+            Spacer(modifier = Modifier.height(16.dp))
+        }
         Image(painter= painterResource(imageResource),contentDescription=result.toString())
         Spacer(modifier = Modifier.height(16.dp))
         Button(onClick = {result=(1..6).random()}) {
